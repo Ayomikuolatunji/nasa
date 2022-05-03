@@ -22,8 +22,10 @@ fs.createReadStream("./kepler_data.csv")
       console.log(error.message);
   })
   .on("end",()=>{
+      console.log(habitablePlanet.map((planet)=>{
+          return planet["kepler_name"]
+      }))
       console.log(`${habitablePlanet.length} is amount of habitable planet`);
-      console.log("done reading our file");
   })
 
 const parser=parse({
