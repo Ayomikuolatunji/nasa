@@ -5,8 +5,7 @@ const habitablePlanet=[]
 
 
 const isHabitable=(planet)=>{
-    return planet[" koi_pdisposition"] === "CONFIRMED"
-    && planet["koi_insol"] >0.36 && planet["koi_insol"] <1.11 && planet[" koi_prad"] <1.6
+    return planet["koi_disposition"] ==="CONFIRMED" && planet["koi_insol"] >0.36 && planet["koi_insol"] <1.11  && planet["koi_prad"] < 1.6
 }
 
 fs.createReadStream("./kepler_data.csv")
@@ -23,7 +22,7 @@ fs.createReadStream("./kepler_data.csv")
       console.log(error.message);
   })
   .on("end",()=>{
-      console.log(habitablePlanet);
+      console.log(`${habitablePlanet.length} is amount of habitable planet`);
       console.log("done reading our file");
   })
 
