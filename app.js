@@ -1,7 +1,13 @@
 const  {parse}=require("csv-parse")
 const fs=require("fs")
 
-const result=[]
+const habitablePlanet=[]
+
+
+const isHabitable=(planet)=>{
+    return planet[" koi_pdisposition"] === "CONFIRMED"
+    && planet["koi_insol"] >0.36 && planet["koi_insol"] <1.11 && planet[" koi_prad"] <1.6
+}
 
 fs.createReadStream("./kepler_data.csv")
   .pipe(parse({
@@ -9,13 +15,15 @@ fs.createReadStream("./kepler_data.csv")
       columns: true
   }))
   .on("data",(data)=>{
-     result.push(data)
+      if(isHabitable(data)){
+        habitablePlanet.push(data)
+      }
   })
   .on("error",(error)=>{
       console.log(error.message);
   })
   .on("end",()=>{
-      console.log(result);
+      console.log(habitablePlanet);
       console.log("done reading our file");
   })
 
